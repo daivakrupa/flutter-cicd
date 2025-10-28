@@ -11,7 +11,7 @@ import 'package:visiq/models/book_visit_model/IdUploadModel.dart';
 import 'package:visiq/models/book_visit_model/countrycodes_model.dart';
 import 'package:visiq/models/building_blocks_model/building_blocks_model.dart';
 import 'package:visiq/network_manager/network_manager.dart';
-import '../../Utils/globals.dart';
+import '../../utils/globals.dart';
 
 class GroupBookingController extends GetxController {
   final roles = <Roles>[].obs;
