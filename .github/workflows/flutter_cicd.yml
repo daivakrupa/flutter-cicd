@@ -25,9 +25,7 @@ jobs:
       - name: Cache Flutter dependencies
         uses: actions/cache@v4
         with:
-          path: |
-            ~/.pub-cache
-            build
+          path: ~/.pub-cache
           key: ${{ runner.os }}-pub-${{ hashFiles('pubspec.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pub-
@@ -46,15 +44,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
-      - name: Run unit tests
+      - name: Run unit tests with coverage
         run: flutter test --coverage
-        
-      - name: Install lcov
-        run: sudo apt-get update && sudo apt-get install -y lcov
 
-      - name: Generate coverage report
-        run: |
-          genhtml coverage/lcov.info -o coverage/html
+      - name: Install lcov
+        run: brew install lcov
+
+      - name: Generate coverage report (HTML)
+        run: genhtml coverage/lcov.info -o coverage/html
 
       - name: Upload coverage report
         uses: actions/upload-artifact@v4
@@ -78,22 +75,21 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.14.0
         with:
           scan-type: fs
           severity: CRITICAL,HIGH
-          exit-code: '1'        # Fail pipeline if high/critical found
+          exit-code: '1'
           ignore-unfixed: true
           format: 'table'
           output: 'trivy-report.txt'
 
-      - name: Build Android APK
+      - name: Build Android AppBundle
         run: flutter build appbundle --release
 
-      - name: Build iOS
-        run: flutter build ipa
+      - name: Build iOS app (no codesign)
+        run: flutter build ios --no-codesign
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
@@ -101,7 +97,7 @@ jobs:
           name: build-artifacts
           path: |
             build/app/outputs/bundle/release/app-release.aab
-            build/ios/ipa/*.ipa
+            build/ios/iphoneos/*.app
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
@@ -109,4 +105,4 @@ jobs:
           name: reports
           path: |
             trivy-report.txt
-            coverage/coverage.xml
+            coverage/lcov.info
