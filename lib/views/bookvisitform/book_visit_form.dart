@@ -5,7 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:visiq/controllers/book_visit_controller.dart';
 import 'package:visiq/utils/overlay_loading_progress.dart';
-import 'package:visiq/views/bookvisitform/GroupBookingForm.dart';
+import 'package:visiq/views/bookvisitform/group_booking_form.dart';
 import 'package:visiq/views/bookvisitform/country_code_dropdown.dart';
 import 'package:intl/intl.dart';
 import 'package:visiq/views/bookvisitform/form_field_widget.dart';
