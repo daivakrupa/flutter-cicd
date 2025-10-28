@@ -62,18 +62,22 @@ jobs:
           name: coverage-report
           path: coverage/html
 
-      - name: SonarQube Scan
-        run: |
-          sonar-scanner \
-            -Dsonar.projectKey=my_flutter_app \
-            -Dsonar.organization=my-org \
-            -Dsonar.sources=lib \
-            -Dsonar.tests=test \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.dart.lcov.reportPaths=coverage/lcov.info
+      - name: SonarCloud Analysis
+        uses: sonarsource/sonarcloud-github-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=daivakrupa_flutter-cicd
+            -Dsonar.organization=daivakrupat
+            -Dsonar.sources=lib
+            -Dsonar.tests=test
+            -Dsonar.coverageReportPaths=coverage/lcov.info
+            -Dsonar.c.file.suffixes=-
+            -Dsonar.cpp.file.suffixes=-
+            -Dsonar.objc.file.suffixes=-
+            -Dsonar.exclusions=android/**,ios/**,macos/**,linux/**,windows/**,build/**
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.14.0
