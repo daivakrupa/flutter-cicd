@@ -70,7 +70,7 @@ jobs:
             -Dsonar.organization=daivakrupat
             -Dsonar.sources=lib
             -Dsonar.tests=test
-            -Dsonar.coverageReportPaths=coverage/lcov.info
+            -Dsonar.dart.lcov.reportPaths=coverage/lcov.info
             -Dsonar.c.file.suffixes=-
             -Dsonar.cpp.file.suffixes=-
             -Dsonar.objc.file.suffixes=-
