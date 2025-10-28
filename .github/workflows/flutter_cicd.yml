@@ -90,18 +90,18 @@ jobs:
           output: 'trivy-report.txt'
 
       - name: Build Android APK
-        run: flutter build apk --release
+        run: flutter build appbundle --release
 
       - name: Build iOS
-        run: flutter build ios --release
+        run: flutter build ipa --release
 
       - name: Upload Build Artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-artifacts
           path: |
-            build/app/outputs/flutter-apk/app-release.apk
-            build/ios/iphoneos/*.app
+            build/app/outputs/bundle/release/app-release.aab
+            build/ios/ipa/*.ipa
 
       - name: Upload Reports
         uses: actions/upload-artifact@v4
