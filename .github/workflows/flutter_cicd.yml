@@ -9,7 +9,7 @@ on:
 jobs:
   build-test-analyze:
     name: Build, Test, Analyze, and Scan
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
 
     env:
       SONAR_PROJECT_KEY: daivakrupa_flutter-cicd
