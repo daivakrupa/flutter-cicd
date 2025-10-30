@@ -13,8 +13,8 @@ jobs:
     outputs:
       scan-status: ${{ steps.trivy.outcome }}
     env:
-      SONAR_PROJECT_KEY: daivakrupa_flutter-cicd
-      SONAR_ORGANIZATION: daivakrupat
+      SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+      SONAR_ORGANIZATION: ${{ secrets.SONAR_ORGANIZATION }}
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
     steps:
